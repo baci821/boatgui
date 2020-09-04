@@ -1,0 +1,83 @@
+import controlP5.*;
+import cc.arduino.*;
+import processing.serial.*;
+
+Serial port;
+
+Arduino arduino; //creates arduino object
+ControlP5 cp5; //creates an object
+PFont font;
+int sensor= 0;
+int read;
+
+float value;
+
+void setup(){
+ size(300, 400); // window size (width, height) 
+ 
+ printArray(Serial.list()); //prints available ports
+ 
+ port = new Serial(this, "COM4", 9600); //sets the com port
+ cp5 = new ControlP5(this); //creates the button object
+ font = createFont ("calibri light", 15); //sets fonts for buttons
+ 
+  cp5.addButton("FuelTank1") //this names the button
+     .setPosition(100, 50) //location of button (x,Y)
+     .setSize(100, 50) //button size (width, height)
+     .setFont(font)
+   ;
+  cp5.addButton("NavLights") //this names the button
+   .setPosition(200, 50) //location of button (x,Y)
+   .setSize(100, 50) //button size (width, height)
+   .setFont(font)
+   ;
+   cp5.addButton("NavOff") //this names the button
+     .setPosition(200, 100) //location of button (x,Y)
+     .setSize(100, 50) //button size (width, height)
+     .setFont(font)
+   ;
+//Below is trim tab GUI code
+  cp5.addButton("TrimUp") //this names the button
+   .setPosition(0, 50) //location of button (x,Y)
+   .setSize(100, 50) //button size (width, height)
+   .setFont(font)
+   ;
+  cp5.addButton("TrimDown") //this names the button
+    .setPosition(0, 100) //location of button (x,Y)
+    .setSize(100, 50) //button size (width, height)
+    .setFont(font)
+   ;
+  cp5.addButton("TrimStop") //this names the button
+    .setPosition(100, 100) //location of button (x,Y)
+    .setSize(100, 50) //button size (width, height)
+    .setFont(font)
+    ;
+}
+
+void draw(){
+ 
+  background(0, 0, 0);
+  fill(255, 255, 255); //text color
+  textFont(font);
+  text("VESSEL CONTROLS", 100,30); //("text", X location, Y location)
+  
+}
+
+void NavLights(){
+  port.write('n');
+}
+
+void TrimUp(){
+  port.write('u');
+}
+
+void TrimDown(){
+  port.write('d');
+}
+
+void TrimStop(){
+  port.write('s');
+}
+void NavOff(){
+  port.write('o');
+}
