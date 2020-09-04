@@ -1,0 +1,38 @@
+
+//L293D
+//Motor A
+const int motorPin1  = 5;  // Pin 14 of L293
+const int motorPin2  = 6;  // Pin 10 of L293
+
+void setup() {
+pinMode(2, OUTPUT); //set output pin for nav lights
+pinMode(3, OUTPUT); //set output pin for trim tabs
+pinMode(5, OUTPUT); //tabs Up (clockwise)Pin 14 of L293
+pinMode(6, OUTPUT); //tabs down (counterclockwise)Pin 10 of L293
+
+Serial.begin(9600); //starts PC communication
+}
+
+void loop() {
+ if(Serial.available()){ //id data is available
+
+  char val = Serial.read();
+
+  if(val == 'n'){ //if n received
+    digitalWrite(2, HIGH); // turn on nav lights
+  }
+  if(val == 'o'){ //if n received
+    digitalWrite(2, LOW);
+  }
+  if(val == 'u'){ //if u received
+    digitalWrite(5, HIGH);
+  }
+    if(val == 'd'){ //if n received
+    digitalWrite(6, HIGH);
+  }
+    if(val == 's'){ //if n received
+    digitalWrite(5, LOW);
+    digitalWrite(6, LOW);
+  }
+ }
+ }
